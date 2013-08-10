@@ -1,0 +1,305 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E340C65417B640E100672118 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E340C65317B640E100672118 /* Cocoa.framework */; };
+		E340C65E17B640E100672118 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E340C65C17B640E100672118 /* InfoPlist.strings */; };
+		E340C66E17B640F200672118 /* gears.c in Sources */ = {isa = PBXBuildFile; fileRef = E340C64B17B640C900672118 /* gears.c */; };
+		E340C67017B6428200672118 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E340C66F17B6428200672118 /* libglfw3.a */; };
+		E340C67617B6441C00672118 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E340C67517B6441C00672118 /* OpenGL.framework */; };
+		E340C67817B6445F00672118 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E340C67717B6445F00672118 /* IOKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E340C64B17B640C900672118 /* gears.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = gears.c; path = ../gears.c; sourceTree = "<group>"; };
+		E340C65017B640E100672118 /* vectors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vectors.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E340C65317B640E100672118 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		E340C65617B640E100672118 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		E340C65717B640E100672118 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		E340C65817B640E100672118 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E340C65B17B640E100672118 /* vectors-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "vectors-Info.plist"; sourceTree = "<group>"; };
+		E340C65D17B640E100672118 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E340C66117B640E100672118 /* vectors-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vectors-Prefix.pch"; sourceTree = "<group>"; };
+		E340C66F17B6428200672118 /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglfw3.a; sourceTree = "<group>"; };
+		E340C67517B6441C00672118 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
+		E340C67717B6445F00672118 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E340C64D17B640E100672118 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E340C67817B6445F00672118 /* IOKit.framework in Frameworks */,
+				E340C67617B6441C00672118 /* OpenGL.framework in Frameworks */,
+				E340C65417B640E100672118 /* Cocoa.framework in Frameworks */,
+				E340C67017B6428200672118 /* libglfw3.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E340C64417B640AA00672118 = {
+			isa = PBXGroup;
+			children = (
+				E340C65917B640E100672118 /* vectors */,
+				E340C65217B640E100672118 /* Frameworks */,
+				E340C65117B640E100672118 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E340C65117B640E100672118 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E340C65017B640E100672118 /* vectors.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E340C65217B640E100672118 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E340C67517B6441C00672118 /* OpenGL.framework */,
+				E340C65317B640E100672118 /* Cocoa.framework */,
+				E340C67717B6445F00672118 /* IOKit.framework */,
+				E340C65517B640E100672118 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E340C65517B640E100672118 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E340C65617B640E100672118 /* AppKit.framework */,
+				E340C65717B640E100672118 /* CoreData.framework */,
+				E340C65817B640E100672118 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		E340C65917B640E100672118 /* vectors */ = {
+			isa = PBXGroup;
+			children = (
+				E340C64B17B640C900672118 /* gears.c */,
+				E340C65A17B640E100672118 /* Supporting Files */,
+			);
+			path = vectors;
+			sourceTree = "<group>";
+		};
+		E340C65A17B640E100672118 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E340C66F17B6428200672118 /* libglfw3.a */,
+				E340C65B17B640E100672118 /* vectors-Info.plist */,
+				E340C65C17B640E100672118 /* InfoPlist.strings */,
+				E340C66117B640E100672118 /* vectors-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E340C64F17B640E100672118 /* vectors */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E340C66B17B640E100672118 /* Build configuration list for PBXNativeTarget "vectors" */;
+			buildPhases = (
+				E340C64C17B640E100672118 /* Sources */,
+				E340C64D17B640E100672118 /* Frameworks */,
+				E340C64E17B640E100672118 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = vectors;
+			productName = vectors;
+			productReference = E340C65017B640E100672118 /* vectors.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E340C64517B640AA00672118 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+			};
+			buildConfigurationList = E340C64817B640AA00672118 /* Build configuration list for PBXProject "vectors" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E340C64417B640AA00672118;
+			productRefGroup = E340C65117B640E100672118 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E340C64F17B640E100672118 /* vectors */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E340C64E17B640E100672118 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E340C65E17B640E100672118 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E340C64C17B640E100672118 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E340C66E17B640F200672118 /* gears.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E340C65C17B640E100672118 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E340C65D17B640E100672118 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E340C64917B640AA00672118 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		E340C64A17B640AA00672118 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+		E340C66C17B640E100672118 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "vectors/vectors-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/include";
+				INFOPLIST_FILE = "vectors/vectors-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/vectors\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E340C66D17B640E100672118 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "vectors/vectors-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/include";
+				INFOPLIST_FILE = "vectors/vectors-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/vectors\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E340C64817B640AA00672118 /* Build configuration list for PBXProject "vectors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E340C64917B640AA00672118 /* Debug */,
+				E340C64A17B640AA00672118 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E340C66B17B640E100672118 /* Build configuration list for PBXNativeTarget "vectors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E340C66C17B640E100672118 /* Debug */,
+				E340C66D17B640E100672118 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E340C64517B640AA00672118 /* Project object */;
+}
