@@ -19,9 +19,6 @@
 		E340C64B17B640C900672118 /* gears.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = gears.c; path = ../gears.c; sourceTree = "<group>"; };
 		E340C65017B640E100672118 /* vectors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vectors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E340C65317B640E100672118 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		E340C65617B640E100672118 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		E340C65717B640E100672118 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		E340C65817B640E100672118 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E340C65B17B640E100672118 /* vectors-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "vectors-Info.plist"; sourceTree = "<group>"; };
 		E340C65D17B640E100672118 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E340C66117B640E100672118 /* vectors-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vectors-Prefix.pch"; sourceTree = "<group>"; };
@@ -76,9 +73,6 @@
 		E340C65517B640E100672118 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E340C65617B640E100672118 /* AppKit.framework */,
-				E340C65717B640E100672118 /* CoreData.framework */,
-				E340C65817B640E100672118 /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
