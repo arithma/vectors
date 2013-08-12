@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <GLFW/glfw3.h>
+#include <FTGL/ftgl.h>
 
 #ifndef M_PI
 #define M_PI 3.141592654
@@ -206,7 +207,7 @@ static void draw(void)
 /* update animation parameters */
 static void animate(void)
 {
-  angle = 100.f * (float) glfwGetTime();
+  angle = 10.f * (float) glfwGetTime();
 }
 
 
@@ -328,14 +329,21 @@ int main(int argc, char *argv[])
 
     glfwWindowHint(GLFW_DEPTH_BITS, 16);
 
-    window = glfwCreateWindow( 300, 300, "Gears", NULL, NULL );
+    int monitorCount;
+    
+    GLFWmonitor *primMonitor = glfwGetPrimaryMonitor();
+    GLFWvidmode const * vidModes = glfwGetVideoModes(primMonitor, &monitorCount);
+    GLFWvidmode const & vidMode = vidModes[monitorCount-1];
+    
+    window = glfwCreateWindow( vidMode.width, vidMode.height, "Gears", primMonitor, NULL );
     if (!window)
     {
         fprintf( stderr, "Failed to open GLFW window\n" );
         glfwTerminate();
         exit( EXIT_FAILURE );
     }
-
+    
+    
     // Set callback functions
     glfwSetFramebufferSizeCallback(window, reshape);
     glfwSetKeyCallback(window, key);
@@ -370,4 +378,3 @@ int main(int argc, char *argv[])
     // Exit program
     exit( EXIT_SUCCESS );
 }
-

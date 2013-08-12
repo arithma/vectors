@@ -9,14 +9,16 @@
 /* Begin PBXBuildFile section */
 		E340C65417B640E100672118 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E340C65317B640E100672118 /* Cocoa.framework */; };
 		E340C65E17B640E100672118 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E340C65C17B640E100672118 /* InfoPlist.strings */; };
-		E340C66E17B640F200672118 /* gears.c in Sources */ = {isa = PBXBuildFile; fileRef = E340C64B17B640C900672118 /* gears.c */; };
+		E340C66E17B640F200672118 /* gears.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E340C64B17B640C900672118 /* gears.cpp */; };
 		E340C67017B6428200672118 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E340C66F17B6428200672118 /* libglfw3.a */; };
 		E340C67617B6441C00672118 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E340C67517B6441C00672118 /* OpenGL.framework */; };
 		E340C67817B6445F00672118 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E340C67717B6445F00672118 /* IOKit.framework */; };
+		E374E40317B8406E0080FD44 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E374E40217B8406E0080FD44 /* libfreetype.a */; };
+		E374E40517B8407F0080FD44 /* libftgl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E374E40417B8407F0080FD44 /* libftgl.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E340C64B17B640C900672118 /* gears.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = gears.c; path = ../gears.c; sourceTree = "<group>"; };
+		E340C64B17B640C900672118 /* gears.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = gears.cpp; path = ../gears.cpp; sourceTree = "<group>"; };
 		E340C65017B640E100672118 /* vectors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vectors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E340C65317B640E100672118 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E340C65B17B640E100672118 /* vectors-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "vectors-Info.plist"; sourceTree = "<group>"; };
@@ -25,6 +27,8 @@
 		E340C66F17B6428200672118 /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglfw3.a; sourceTree = "<group>"; };
 		E340C67517B6441C00672118 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
 		E340C67717B6445F00672118 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		E374E40217B8406E0080FD44 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfreetype.a; sourceTree = "<group>"; };
+		E374E40417B8407F0080FD44 /* libftgl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libftgl.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +40,8 @@
 				E340C67617B6441C00672118 /* OpenGL.framework in Frameworks */,
 				E340C65417B640E100672118 /* Cocoa.framework in Frameworks */,
 				E340C67017B6428200672118 /* libglfw3.a in Frameworks */,
+				E374E40317B8406E0080FD44 /* libfreetype.a in Frameworks */,
+				E374E40517B8407F0080FD44 /* libftgl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,22 +71,14 @@
 				E340C67517B6441C00672118 /* OpenGL.framework */,
 				E340C65317B640E100672118 /* Cocoa.framework */,
 				E340C67717B6445F00672118 /* IOKit.framework */,
-				E340C65517B640E100672118 /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E340C65517B640E100672118 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		E340C65917B640E100672118 /* vectors */ = {
 			isa = PBXGroup;
 			children = (
-				E340C64B17B640C900672118 /* gears.c */,
+				E340C64B17B640C900672118 /* gears.cpp */,
 				E340C65A17B640E100672118 /* Supporting Files */,
 			);
 			path = vectors;
@@ -90,6 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				E340C66F17B6428200672118 /* libglfw3.a */,
+				E374E40217B8406E0080FD44 /* libfreetype.a */,
+				E374E40417B8407F0080FD44 /* libftgl.a */,
 				E340C65B17B640E100672118 /* vectors-Info.plist */,
 				E340C65C17B640E100672118 /* InfoPlist.strings */,
 				E340C66117B640E100672118 /* vectors-Prefix.pch */,
@@ -158,7 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E340C66E17B640F200672118 /* gears.c in Sources */,
+				E340C66E17B640F200672118 /* gears.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +292,7 @@
 				E340C66D17B640E100672118 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
