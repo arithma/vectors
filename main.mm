@@ -180,7 +180,7 @@ static void draw(void)
     // draw cubes
 //    float scale = .1;
     
-    int const N = 30;
+    int const N = 15;
     float const space = 3;
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
@@ -188,11 +188,14 @@ static void draw(void)
                 float x = (float)i / (N-1);
                 float y = (float)j / (N-1);
                 float z = (float)k / (N-1);
+                x = (x - .5) * 2;
+                y = (y - .5) * 2;
+                z = (z - .5) * 2;
                 
                 float scale = 0;
                 float dd = x*x + y*y + z*z;
                 dd *= (sin(glfwGetTime()*M_PI/2)+1)/2;
-                if(abs(dd - 1) < .1){
+                if(abs(dd - 1) < .2){
                     scale = 1;
                 }
                 
