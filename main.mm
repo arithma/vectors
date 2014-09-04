@@ -1,17 +1,5 @@
-#include <math.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <GLFW/glfw3.h>
-#include <FTGL/ftgl.h>
-#include <GLM/glm.hpp>
-#include <GLM/gtc/matrix_transform.hpp>
-#include <GLM/gtc/matrix_inverse.hpp>
-#include <GLM/gtc/type_ptr.hpp>
-
-#include <iostream>
-#include <fstream>
-
+#include "shader.h"
+#import <Foundation/Foundation.h>
 
 using namespace std;
 
@@ -21,70 +9,24 @@ using namespace std;
 
 using namespace glm;
 
+GLint programObject_;
+GLuint mvpLoc_;
+GLuint mvLoc_;
+GLuint lightLoc_;
+GLuint upLoc_;
+GLuint color_;
+const int VERTEX_POS_INDX = 0;
+const int VERTEX_NORMAL_INDX = 2;
+const int VERTEX_TEXCOORD_INDX = 1;
+
 static mat4x4 player(mat4x3::null);
-
-GLuint compileShader ( GLenum type, const char *shaderSrc ){
-    GLuint shader;
-    GLint compiled;
-    
-    // Create the shader object
-    shader = glCreateShader ( type );
-    
-    assert(shader != 0);
-    
-    // Load the shader source
-    glShaderSource ( shader, 1, &shaderSrc, NULL );
-    
-    // Compile the shader
-    glCompileShader ( shader );
-    
-    // Check the compile status
-    glGetShaderiv ( shader, GL_COMPILE_STATUS, &compiled );
-    
-    if ( !compiled )
-    {
-        GLint infoLen = 0;
-        
-        glGetShaderiv ( shader, GL_INFO_LOG_LENGTH, &infoLen );
-        
-        if ( infoLen > 1 )
-        {
-            char* infoLog = new char[infoLen];
-            
-            glGetShaderInfoLog ( shader, infoLen, NULL, infoLog );
-            cout <<"Error compiling shader:\n" << infoLog << endl;
-            
-            delete [] infoLog;
-        }
-    }
-    assert(compiled);
-    
-    return shader;
-}
-
-GLuint compileShaderFromFile( GLenum type, const char *filename){
-    char * source;
-    {
-        // Use file io to load the code of the shader.
-        std::ifstream fp( filename , std::ios_base::binary );
-        assert(!fp.fail());
-        
-        fp.seekg( 0, std::ios_base::end );
-        long const len = fp.tellg();
-        fp.seekg( 0, std::ios_base::beg );
-        
-        source = new char[len+1];
-        fp.read(source, sizeof(char)*len);
-        source[len] = NULL;
-    }
-    return compileShader(type, source);
-}
+float points[100][100];
 
 /* OpenGL draw function & timing */
 static void draw(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    mat4 player_inv = inverse(player);
+    
 }
 
 
@@ -133,23 +75,39 @@ void reshape( GLFWwindow* window, int width, int height )
 /* program & OpenGL initialization */
 static void init(int argc, char *argv[])
 {
-    GLint i;
+    GLuint vertexShader;
+    GLuint fragmentShader;
+    GLint linked;
     
-    glEnable(GL_CULL_FACE);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_DEPTH_TEST);
+    NSString *vertPath = [[NSBundle mainBundle] pathForResource:@"vertex" ofType:@"vsh"];
+    NSString *fragPath = [[NSBundle mainBundle] pathForResource:@"fragment" ofType:@"fsh"];
+    vertexShader = compileShaderFromFile (GL_VERTEX_SHADER, vertPath.UTF8String);
+    fragmentShader = compileShaderFromFile (GL_FRAGMENT_SHADER, fragPath.UTF8String);
     
-    glEnable(GL_NORMALIZE);
+    programObject_ = glCreateProgram ( );
     
-    for ( i=1; i<argc; i++ ) {
-        if (strcmp(argv[i], "-info")==0) {
-            printf("GL_RENDERER   = %s\n", (char *) glGetString(GL_RENDERER));
-            printf("GL_VERSION    = %s\n", (char *) glGetString(GL_VERSION));
-            printf("GL_VENDOR     = %s\n", (char *) glGetString(GL_VENDOR));
-            printf("GL_EXTENSIONS = %s\n", (char *) glGetString(GL_EXTENSIONS));
-        }
-    }
+    assert ( programObject_ );
+    
+    glAttachShader ( programObject_, vertexShader );
+    glAttachShader ( programObject_, fragmentShader );
+    
+    glBindAttribLocation ( programObject_, VERTEX_POS_INDX, "a_position" );
+    glBindAttribLocation ( programObject_, VERTEX_NORMAL_INDX, "a_normal" );
+    glBindAttribLocation ( programObject_, VERTEX_TEXCOORD_INDX, "a_coord" );
+    
+    glLinkProgram ( programObject_ );
+    
+    glGetProgramiv ( programObject_, GL_LINK_STATUS, &linked );
+    
+    assert(linked);
+    
+    glUseProgram ( programObject_ );
+    
+    mvpLoc_ = glGetUniformLocation( programObject_, "u_mvp" );
+    mvLoc_ = glGetUniformLocation( programObject_, "u_mv" );
+    upLoc_ = glGetUniformLocation( programObject_, "u_up" );
+    lightLoc_ = glGetUniformLocation( programObject_, "u_light" );
+    color_ = glGetUniformLocation( programObject_, "u_color");
 }
 
 
@@ -173,7 +131,7 @@ int main(int argc, char *argv[])
     GLFWvidmode const * vidModes = glfwGetVideoModes(primMonitor, &monitorCount);
     GLFWvidmode const & vidMode = vidModes[monitorCount-1];
     
-    window = glfwCreateWindow( vidMode.width, vidMode.height, "Gears", primMonitor, NULL );
+    window = glfwCreateWindow( vidMode.width/2, vidMode.height/2, "Gears", NULL, NULL );
     if (!window)
     {
         fprintf( stderr, "Failed to open GLFW window\n" );
