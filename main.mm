@@ -1,5 +1,4 @@
 #include "shader.h"
-#import <Foundation/Foundation.h>
 
 using namespace std;
 
@@ -15,20 +14,179 @@ GLuint mvLoc_;
 GLuint lightLoc_;
 GLuint upLoc_;
 GLuint color_;
-const int VERTEX_POS_INDX = 0;
-const int VERTEX_NORMAL_INDX = 2;
-const int VERTEX_TEXCOORD_INDX = 1;
+static const int VERTEX_POS_INDX = 0;
+static const int VERTEX_NORMAL_INDX = 2;
+static const int VERTEX_TEXCOORD_INDX = 1;
+
+mat4 view_;
+mat4 proj_;
+vec3 light_;
+vec3 up_;
 
 static mat4x4 player(mat4x3::null);
 float points[100][100];
+
+struct Vertex {
+    vec3 pos;
+    vec3 normal;
+    vec2 uv;
+};
+
+struct Cube {
+    Cube();
+    void draw();
+    
+    vector<Vertex> vertices;
+    vector<ushort> indices;
+    
+    GLuint vbo;
+    GLuint ibo;
+};
+
+Cube::Cube(){
+    vertices.push_back(Vertex({vec3(.5,-.5,.5), vec3(), vec2()}));
+    vertices.push_back(Vertex({vec3(.5,.5,.5), vec3(), vec2()}));
+    vertices.push_back(Vertex({vec3(-.5,.5,.5), vec3(), vec2()}));
+    vertices.push_back(Vertex({vec3(-.5,-.5,.5), vec3(), vec2()}));
+    
+    vertices.push_back(Vertex({vec3(.5,-.5,-.5), vec3(), vec2()}));
+    vertices.push_back(Vertex({vec3(.5,.5,-.5), vec3(), vec2()}));
+    vertices.push_back(Vertex({vec3(-.5,.5,-.5), vec3(), vec2()}));
+    vertices.push_back(Vertex({vec3(-.5,-.5,-.5), vec3(), vec2()}));
+    
+    
+    indices.push_back(0);
+    indices.push_back(1);
+    indices.push_back(2);
+    
+    indices.push_back(2);
+    indices.push_back(3);
+    indices.push_back(1);
+    
+    
+    indices.push_back(5);
+    indices.push_back(4);
+    indices.push_back(7);
+    
+    indices.push_back(7);
+    indices.push_back(6);
+    indices.push_back(5);
+    
+    
+    indices.push_back(0);
+    indices.push_back(5);
+    indices.push_back(1);
+    
+    indices.push_back(4);
+    indices.push_back(5);
+    indices.push_back(0);
+    
+    
+    indices.push_back(7);
+    indices.push_back(3);
+    indices.push_back(2);
+    
+    indices.push_back(2);
+    indices.push_back(3);
+    indices.push_back(5);
+    
+    
+    indices.push_back(4);
+    indices.push_back(0);
+    indices.push_back(3);
+    
+    indices.push_back(4);
+    indices.push_back(7);
+    indices.push_back(3);
+    
+    
+    indices.push_back(6);
+    indices.push_back(2);
+    indices.push_back(1);
+    
+    indices.push_back(6);
+    indices.push_back(5);
+    indices.push_back(1);
+    
+    const int VERTEX_POS_SIZE = 3;
+    const int VERTEX_NORMAL_SIZE = 3;
+    const int VERTEX_TEXCOORD_SIZE = 2;
+    
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+    
+    glGenBuffers(1, &ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(unsigned short), &indices[0], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray ( VERTEX_POS_INDX );
+    glEnableVertexAttribArray ( VERTEX_NORMAL_INDX );
+    glEnableVertexAttribArray ( VERTEX_TEXCOORD_INDX );
+    
+    int offset = 0;
+    Vertex *p = 0;
+    
+    glVertexAttribPointer ( VERTEX_POS_INDX, VERTEX_POS_SIZE, GL_FLOAT, GL_FALSE, sizeof(Vertex), &p->pos );
+    offset += sizeof(vec3);
+    
+    glVertexAttribPointer ( VERTEX_NORMAL_INDX, VERTEX_NORMAL_SIZE, GL_FLOAT, GL_FALSE, sizeof(Vertex), &p->normal );
+    offset += sizeof(vec3);
+    
+    glVertexAttribPointer ( VERTEX_TEXCOORD_INDX, VERTEX_TEXCOORD_SIZE, GL_FLOAT, GL_FALSE, sizeof(Vertex), &p->uv );
+    offset += sizeof(vec2);
+}
+
+void Cube::draw() {
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    
+    glEnableVertexAttribArray ( VERTEX_POS_INDX );
+    glEnableVertexAttribArray ( VERTEX_NORMAL_INDX );
+    glEnableVertexAttribArray ( VERTEX_TEXCOORD_INDX );
+    
+    glDrawElements(GL_TRIANGLES, (int)indices.size(), GL_UNSIGNED_SHORT, 0);
+}
+
+Cube *pCube_;
 
 /* OpenGL draw function & timing */
 static void draw(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
+    // camera setup
+    vec3 eye = vec3(0, 0, 5);
+    
+    view_ = lookAt(eye, vec3(0,0,0), vec3(0,1,0));
+    
+    vec4 up4 = view_ * vec4(up_, 0);
+    vec4 light4 = view_ * vec4(light_, 0);
+    
+    glUniform3fv(lightLoc_, 1, value_ptr(light4));
+    glUniform3fv(upLoc_, 1, value_ptr(up4));
+    
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+    
+    glFrontFace(GL_CCW);
+    glCullFace(GL_BACK);
+    
+//    glPolygonMode(GL_FRONT, GL_LINE);
+//    glPolygonMode(GL_BACK, GL_LINE);
+    
+    // draw cubes
+//    float scale = .1;
+    mat4 model = mat4();
+    model = model * glm::scale(model, vec3(.05,.05,.05));
+    mat4 modelview = view_ * model;
+    mat4 mvp = proj_ * modelview;
+    glUniformMatrix4fv(mvLoc_, 1, GL_FALSE, value_ptr(modelview));
+    glUniformMatrix4fv(mvpLoc_, 1, GL_FALSE, value_ptr(mvp));
+    glUniform3f(color_,0, 0, 1);
+    
+    pCube_->draw();
 }
-
 
 /* update animation parameters */
 static void animate(void)
@@ -58,23 +216,16 @@ void key( GLFWwindow* window, int k, int s, int action, int mods )
 /* new window size */
 void reshape( GLFWwindow* window, int width, int height )
 {
-    GLfloat h = (GLfloat) height / (GLfloat) width;
-    GLfloat xmax, znear, zfar;
-    
-    znear = 5.0f;
-    zfar  = 30.0f;
-    xmax  = znear * 0.5f;
-    
-    glViewport( 0, 0, (GLint) width, (GLint) height );
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    glFrustum( -xmax, xmax, -xmax*h, xmax*h, znear, zfar );
+    proj_ = glm::perspective<float>(60.f, (float) width / height, .1f, 100.f);
+    glViewport(0, 0, width, height);
 }
 
 
 /* program & OpenGL initialization */
 static void init(int argc, char *argv[])
 {
+    glClearColor(1, 1, 1, 1);
+
     GLuint vertexShader;
     GLuint fragmentShader;
     GLint linked;
@@ -108,6 +259,12 @@ static void init(int argc, char *argv[])
     upLoc_ = glGetUniformLocation( programObject_, "u_up" );
     lightLoc_ = glGetUniformLocation( programObject_, "u_light" );
     color_ = glGetUniformLocation( programObject_, "u_color");
+    
+    light_.z = -1;
+    light_.x = -1;
+    up_.y = 1;
+
+    pCube_ = new Cube();
 }
 
 
