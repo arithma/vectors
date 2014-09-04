@@ -157,6 +157,9 @@ static void draw(void)
     
     // camera setup
     vec3 eye = vec3(0, 0, 5);
+    mat4 rotate = glm::rotate<float>(mat4(), glfwGetTime() * 10, vec3(0,1,0));
+    vec4 eye4 = rotate * vec4(eye, 1);
+    eye = vec3(eye4);
     
     view_ = lookAt(eye, vec3(0,0,0), vec3(0,1,0));
     
@@ -172,20 +175,40 @@ static void draw(void)
     glFrontFace(GL_CCW);
     glCullFace(GL_BACK);
     
-//    glPolygonMode(GL_FRONT, GL_LINE);
-//    glPolygonMode(GL_BACK, GL_LINE);
+//    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
     
     // draw cubes
 //    float scale = .1;
-    mat4 model = mat4();
-    model = model * glm::scale(model, vec3(.05,.05,.05));
-    mat4 modelview = view_ * model;
-    mat4 mvp = proj_ * modelview;
-    glUniformMatrix4fv(mvLoc_, 1, GL_FALSE, value_ptr(modelview));
-    glUniformMatrix4fv(mvpLoc_, 1, GL_FALSE, value_ptr(mvp));
-    glUniform3f(color_,0, 0, 1);
     
-    pCube_->draw();
+    int const N = 30;
+    float const space = 3;
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < N; j++){
+            for(int k = 0; k < N; k++){
+                float x = (float)i / (N-1);
+                float y = (float)j / (N-1);
+                float z = (float)k / (N-1);
+                
+                float scale = 0;
+                float dd = x*x + y*y + z*z;
+                dd *= (sin(glfwGetTime()*M_PI/2)+1)/2;
+                if(abs(dd - 1) < .1){
+                    scale = 1;
+                }
+                
+                mat4 model = glm::translate(mat4(), space * vec3(i, j, k));
+                model = glm::translate(model, -(N-1)/2.f*space*vec3(1, 1, 1));
+                model = glm::scale(mat4(), vec3(.05,.05,.05)*scale) * model;
+                mat4 modelview = view_ * model;
+                mat4 mvp = proj_ * modelview;
+                glUniformMatrix4fv(mvLoc_, 1, GL_FALSE, value_ptr(modelview));
+                glUniformMatrix4fv(mvpLoc_, 1, GL_FALSE, value_ptr(mvp));
+                glUniform3f(color_,0, 0, 1);
+                
+                pCube_->draw();
+            }
+        }
+    }
 }
 
 /* update animation parameters */
@@ -288,7 +311,7 @@ int main(int argc, char *argv[])
     GLFWvidmode const * vidModes = glfwGetVideoModes(primMonitor, &monitorCount);
     GLFWvidmode const & vidMode = vidModes[monitorCount-1];
     
-    window = glfwCreateWindow( vidMode.width/2, vidMode.height/2, "Gears", NULL, NULL );
+    window = glfwCreateWindow( vidMode.width, vidMode.height, "Gears", glfwGetPrimaryMonitor(), NULL );
     if (!window)
     {
         fprintf( stderr, "Failed to open GLFW window\n" );
